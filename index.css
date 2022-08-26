@@ -1,0 +1,17 @@
+body{
+background-color: lightslategrey;
+
+}
+div{
+    text-align: center;
+    font-size: xx-large;
+    
+}
+table{
+    border:solid black 2px;
+}
+td{
+    border:solid green 2px;
+    width:40px;
+    height: 40px;
+}

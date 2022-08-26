@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="index.css"/>
+
+    </head>
+    <body >
+<table id="table">
+  
+</table>
+
+<div id="show_msg"> </div>        
+<input type="text" id="name"/>
+<button id="send_name">send name</button>
+<input type="text" id="message"/>
+<button id="send_message">SEND MESSAGE</button>
+<script src="table.js"></script>
+<script type="module" >
+  
+             
+              const ws = new WebSocket('ws://localhost:8082')
+              const name = document.getElementById('name')
+              const btn_send_name = document.getElementById('send_name')
+              const message_= document.getElementById('message')
+              const btn_send_mesage = document.getElementById('send_message')
+              ws.addEventListener('open',()=>{
+             
+                    btn_send_name.addEventListener('click',()=>{
+                      send_user()
+                    })
+                    btn_send_mesage.addEventListener('click',()=>{
+                      send_message()
+                    })
+                    
+                   let divs = document.querySelectorAll('td div')
+                  
+                   for(i=0 ; i<divs.length ;i++){
+                            console.log(divs[i])
+                            divs[i].addEventListener("click",()=>{
+                              console.log(42)
+                            })
+                          }
+                   
+                   ////////////////////////////////////////
+                   ////  take all element from table  ///// 
+                   ////  make td.addEventListener()   /////
+                   //////////////////////////////////////// 
+
+
+              })
+              ws.addEventListener('message',(msg)=>{
+                 let show_msg= document.getElementById('show_msg')
+                 console.log(msg.data)
+                 show_msg.innerHTML=msg.data
+              })
+              function send_message(){
+                let msg ={
+                        user:name.value,
+                        message_:message_.value
+                      }
+                      let msg_str= JSON.stringify(msg)
+                      ws.send(msg_str)
+              }
+              function send_user(){
+                let user={
+                         name:name.value
+                      }
+                      let user_str=JSON.stringify(user)
+                      ws.send(user_str)
+              }
+        </script>
+    </body>
+</html>
